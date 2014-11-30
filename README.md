@@ -109,13 +109,13 @@ Clone the repository or download ZIP and extract it to a directory.
  
    Open shell or command prompt, traverse to {EXTRACTED_DIR}\ChatApp
 
-     socket.io: 
+   socket.io: 
 
-	 npm install socket.io --save
+     npm install socket.io --save
 
-     socket.io component for AngularJS : 
+   socket.io component for AngularJS : 
 
-	 bower install angular-socket-io --save 
+     bower install angular-socket-io --save 
 
 
 ## References and Tutorials that were helpful
