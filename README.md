@@ -1,8 +1,6 @@
 CS575-900_Assignment3 : Implementing a System Highlighting a Non-Trivial Modern Architecture
 =====================
 
-
-
 MEAN.JS Chat Application using Socket.IO
 
 This is an attempt to build a web application using the MEAN.JS Yeoman generator as the starting point. The stack was then expanded with some GUI modifications, additional DBs and socket.io creating a very, very simplistic chat application.
@@ -17,7 +15,11 @@ A ngular.js, a JavaScript MVC framework for web apps
 
 N ode.js, a software platform for scalable server-side and networking applications
 
-I did not want to start with an existing project such as the [Angular Express Seed](https://github.com/btford/angular-express-seed) since I wanted benefit from building something myself.
+For those who do not want to deal with a noobs code, use an existing project such as the [Angular Socket.iO Seed](https://github.com/btford/angular-socket-io-seed) by btford (Brian Ford) as your starting point.
+
+I did this the hard way to attain a basic understanding of socket.io. For those who wish to do the same, I suggest comparing this project against the generated one outlined in the "How initial stack was generated, before modification" section below.
+
+References are listed below. Special thanks for guidance given by Brian Ford, Foysal Ahamed and Smitha Milli for their tutorials and examples. 
 
 ## How to start the application
 
@@ -64,7 +66,7 @@ Clone the repository or download ZIP and extract it to a directory.
    
 ## How initial stack was generated, before modification
 
-   Generate application stack using (Yoeman MEAN.JS generator) (http://meanjs.org/generator.html):
+   Generate application stack using [Yoeman MEAN.JS generator] (http://meanjs.org/generator.html):
 
      npm install -g generator-meanjs
      
@@ -119,6 +121,8 @@ Clone the repository or download ZIP and extract it to a directory.
 http://socket.io/get-started/chat/
 http://vexxhost.com/blog/mean-socket-io-integration-tutorial/
 http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/
+https://github.com/krimple/angular-socketio-chat
+https://github.com/btford/angular-socket-io-im
 http://smithamilli.com/tutorials/
 http://blogs.msdn.com/b/brunoterkaly/archive/2012/02/22/node-js-socket-programming-with-c-and-javascript.aspx
 http://blogs.msdn.com/b/brunoterkaly/archive/2012/02/28/node-js-a-chat-server-written-in-node-and-a-client-app-written-in-c.aspx
