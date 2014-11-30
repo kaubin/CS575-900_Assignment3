@@ -51,9 +51,9 @@ Clone the repository or download ZIP and extract it to a directory.
    
    Create a chat room: Select Rooms -> New Room. Enter room name, Click Submit. The room view will appear.
 
-#### Open a second web browser to http://localhost:3000
+   Open a second web browser to http://localhost:3000
 	 
-   Join the recently created chat room: Select Rooms -> List Rooms. A list of all available rooms will appear. Find the room created earlier. Click blue Join button.
+   Using the scond browser, join the recently created chat room: Select Rooms -> List Rooms. A list of all available rooms will appear. Find the room created earlier. Click blue Join button.
    
    Enter chat messages in each browser, observe the other browser sees the conversation.
   
