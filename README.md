@@ -29,16 +29,12 @@ Clone the repository or download ZIP and extract it to a directory.
    
    Install dependencies using grunt:
    
-     ```shell
      grunt install
-     ```
-     
+
    Provided MongoDB with a location to store databases:
    
-     ```shell
      Create C:\Windows\Temp\MongoDb
-     ```
-     
+
 ### Running the application.
 
    Start MongoDB:
