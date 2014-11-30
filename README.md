@@ -70,7 +70,6 @@ Clone the repository or download ZIP and extract it to a directory.
      
      yo meanjs
 
-  
    Created models, views and controllers for Room and Message History data using MEAN.JS generator.
    
      yo meanjs:crud-module RoomMessages
@@ -93,7 +92,7 @@ Clone the repository or download ZIP and extract it to a directory.
 
      npm install -g grunt
 
-   Grunt: 
+   Grunt-cli: 
 
      npm install -g grunt-cli
 
