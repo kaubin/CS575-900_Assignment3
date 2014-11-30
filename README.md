@@ -31,16 +31,16 @@ Clone the repository or download ZIP and extract it to a directory.
    
      grunt install
 
-   Provided MongoDB with a location to store databases:
-   
-     Create C:\Windows\Temp\MongoDb
+   Provided MongoDB with a location to store databases. Create directory C:\Windows\Temp\MongoDb.
 
 ### Running the application.
 
    Start MongoDB:
+   
      mongod.exe --dbpath C:\Windows\Temp\MongoDb
 
    To run application using grunt:
+   
      grunt
 
 ### Playing with the application
@@ -48,17 +48,19 @@ Clone the repository or download ZIP and extract it to a directory.
    Open a web browser to http://localhost:3000
    
    Create an account:
+   
      Click Sign Up (upper right corner), enter information for your user, Click blue Sign Up button. Application will bring you to the MEAN.JS entry page.
    
-   Create a chat room:   
+   Create a chat room:
+   
      Select Rooms -> New Room. Enter room name, Click Submit.
 	 The room view will appear.
 
    Open a second web browser to http://localhost:3000
 	 
    Join the chat room created by the other browser:
-     Select Rooms -> List Rooms.
-	 A list of all available rooms will appear. Find the room created earlier. Click blue Join button.
+   
+     Select Rooms -> List Rooms. A list of all available rooms will appear. Find the room created earlier. Click blue Join button.
    
    Enter chat messages in each browser, observe the other browser sees the conversation.
   
