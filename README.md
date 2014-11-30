@@ -47,78 +47,76 @@ Clone the repository or download ZIP and extract it to a directory.
 
    Open a web browser to http://localhost:3000
    
-   Create an account:
+   Create an account: Click Sign Up (upper right corner), enter information for your user, Click blue Sign Up button. Application will bring you to the MEAN.JS entry page.
    
-     Click Sign Up (upper right corner), enter information for your user, Click blue Sign Up button. Application will bring you to the MEAN.JS entry page.
-   
-   Create a chat room:
-   
-     Select Rooms -> New Room. Enter room name, Click Submit.
-	 The room view will appear.
+   Create a chat room: Select Rooms -> New Room. Enter room name, Click Submit. The room view will appear.
 
    Open a second web browser to http://localhost:3000
 	 
-   Join the chat room created by the other browser:
-   
-     Select Rooms -> List Rooms. A list of all available rooms will appear. Find the room created earlier. Click blue Join button.
+   Join the chat room created by the other browser: Select Rooms -> List Rooms. A list of all available rooms will appear. Find the room created earlier. Click blue Join button.
    
    Enter chat messages in each browser, observe the other browser sees the conversation.
   
    View Message Database: http://localhost:3000/roommessages
+   
    View Room Database: http://localhost:3000/rooms
 
    
 ## How initial stack was generated, before modification
 
    Generate application stack using (Yoeman MEAN.JS generator) (http://meanjs.org/generator.html):
-     ```shell
+
      npm install -g generator-meanjs
+     
      yo meanjs
-     ``` 
+
   
    Created models, views and controllers for Room and Message History data using MEAN.JS generator.
-     ```shell
      yo meanjs:crud-module RoomMessages
+     
      yo meanjs:crud-module Rooms
-     ``` 
 
    The stack initially provides a facility to login and view/edit/delete the CRUD records. Facebook, Twitter, and Google+ login strategies are provided.
 
 ### Global Prerequisites:
 
    Install the following globally:
+   
      npm: Download installer from http://npmjs.org/
+     
      Node.JS: Download installer from http://nodejs.org/
+     
      MondoDB: Download installer from http://www.mongodb.org/downloads
+     
      Grunt: 
-     ```shell
+
      npm install -g grunt
-     ```
+
      Grunt: 
-     ```shell
+
      npm install -g grunt-cli
-     ``` 
+
      Bower:
-     ```shell
+
      npm install -g bower
-     ``` 
+
      Yoeman:
-     ```shell
+
      npm install -g yo
-     ``` 
+
  
 ### Add socket.io to the application package.json:
  
    Open shell or command prompt, traverse to {EXTRACTED_DIR}\ChatApp
-     ```shell
+
      socket.io: 
-     ```shell
+
 	 npm install socket.io --save
-     ``` 
+
      socket.io component for AngularJS : 
-     ```shell
+
 	 bower install angular-socket-io --save 
-     ``` 
+
 
 ## References and Tutorials that were helpful
 
