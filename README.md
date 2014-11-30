@@ -17,7 +17,7 @@ N ode.js, a software platform for scalable server-side and networking applicatio
 
 For those who do not want to deal with a noobs code, use an existing project such as the [Angular Socket.iO Seed](https://github.com/btford/angular-socket-io-seed) by btford (Brian Ford) as your starting point.
 
-I did this the hard way to attain a basic understanding of socket.io. For those who wish to do the same, I suggest comparing this project against the generated one outlined in the "How initial stack was generated, before modification" section below.
+I did this the hard way to attain a basic understanding of socket.io. For those who wish to do the same, I suggest comparing this project against the generated version outlined in the "How initial stack was generated, before modification" section below.
 
 References are listed below. Special thanks for guidance given by Brian Ford, Foysal Ahamed and Smitha Milli for their tutorials and examples. 
 
