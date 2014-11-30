@@ -1,0 +1,104 @@
+<section data-ng-controller="RoomsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Rooms</h1>
+    </div>
+
+    <div class="Create-Group">
+    <h3 class="room-head">Chat Rooms
+        <a href="javascript:" class="btn btn-xs btn-primary" ng-hide="isNew == true" ng-click="isNew = true; roomName = ''; ">New Room</a>
+             <!--   <div class="col-md-12">
+                    <form class="form-horizontal"  data-ng-submit="create(false)" novalidate>
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="control-label" for="name">Name</label>
+                                <div class="controls">
+                                    <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-href="#!/rooms">
+                                <input type="submit" class="btn btn-xs btn-info">
+                            </div>
+                            <div data-ng-show="error" class="text-danger">
+                                <strong data-ng-bind="error"></strong>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>-->
+
+        <input ng-show="isNew == true" class="input-sm form-control cust-text" type="text" data-ng-model="name" placeholder="Name"/>
+
+        <span class="btn btn-xs btn-info" href="javascript:" data-ng-href="#!/rooms" ng-disabled="!name" ng-show="isNew == true" ng-click="create(false)">Create</span>
+
+
+
+        <!--<a href="javascript:" ng-disabled="!name" ng-href="#!/rooms" ng-show="isNew == true" class="btn btn-xs btn-info" ng-click="create(false)">Create</a>-->
+
+        <!--        <input ng-show="isNew == true" class="input-sm form-control cust-text" type="text" ng-model="roomName" placeholder="Room Name" />
+                <a href="javascript:" ng-disabled="!roomName" ng-show="isNew == true" class="btn btn-xs btn-info" ng-click="create();">Create</a>-->
+    </h3>
+    </div>
+
+    <div class="list-group">
+        <a data-ng-repeat="room in rooms" data-ng-href="#!/rooms" class="list-group-item"> <!--/<!--{{room._id}}-->
+            <!--
+                        <small class="list-group-item-text">
+                            Posted on
+                            <span data-ng-bind="room.created | date:'medium'"></span>
+                            by
+                            <span data-ng-bind="room.user.displayName"></span>
+                        </small>
+                        <h4 class="list-group-item-heading" data-ng-bind="room.name"></h4>
+            -->
+            <h4 class="list-group-item-heading" data-ng-bind="room.name"></h4>
+            <span class="btn btn-primary btn-xs pull-right join-room" href="javascript:" data-ng-href="#!/rooms" ng-click="joinChat($index)"><i class="glyphicon glyphicon-ok-sign"></i> Join</span>
+            <span class="btn btn-danger btn-xs pull-right" data-ng-href="#!/rooms" data-ng-show="((authentication.user) && (authentication.user._id == room.user._id))" ng-click="remove(room)"><i class="glyphicon glyphicon-trash"></i> Delete</span>
+            <span class="btn btn-primary btn-xs pull-right" data-ng-href="#!/rooms" data-ng-show="((authentication.user) && (authentication.user._id == room.user._id))" ng-click="edit(room)"><i class="glyphicon glyphicon-edit"></i> Edit</span>
+
+
+<!--            <a class="btn btn-primary" href="/#!/rooms/{{room._id}}/edit">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>-->
+
+<!--            <div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == room.user._id))">
+                <a class="btn btn-primary" href="/#!/rooms/{{room._id}}/edit">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>
+                <a class="btn btn-primary" data-ng-click="remove();">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </div>-->
+
+
+            <small class="list-group-item-text">
+                Posted on
+                <span data-ng-bind="room.created | date:'medium'"></span>
+                by
+                <span data-ng-bind="room.user.displayName"></span>
+            </small>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!rooms.$resolved || rooms.length">
+        No Rooms yet, why don't you <a href="/#!/rooms/create">create one</a>?
+    </div>
+
+
+    <label class="pull-right welcome-panel" ng-show="user">
+        Welcome, <u>
+        <span id="email">{{user.name}}</span></u>
+        <img class="prof-img" ng-src="{{user.img}}" width="39"/>
+    </label>
+    <br/>
+
+    <!--    <input type="text" class="form-control" placeholder="Search Rooms" ng-model="search">
+        <div class="rooms" data-ng-show="((authentication.user) && (authentication.user._id == room.user._id))">
+            <div ng-repeat="item in rooms | filter:search" class="room">
+                <h3>{{item.roomname}}</h3>By : {{item.createdby}}
+                <a class="btn btn-primary btn-xs pull-right join-room" href="javascript:" ng-click="joinChat($index)">Join</a>
+                <a class="btn btn-danger btn-xs pull-right" ng-show="user.name == item.createdby" ng-click="deleteRoom($index)">Delete</a>
+
+            </div>
+            <div class="room" ng-show="rooms.length == 0">
+                <h3>No Rooms Available. Create your own!</h3>
+            </div>
+        </div>-->
+</section>

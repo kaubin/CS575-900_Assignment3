@@ -1,0 +1,61 @@
+<section data-ng-controller="RoomsController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1 data-ng-bind="room.name"></h1>
+	</div>
+    <div id="chatWrap">
+        <div id="chat"></div>
+        <form id="send-message">
+            <input size="35" id="message"/>
+            <input type="submit"/>
+        </form>
+    </div>
+    <div id="users"></div>
+	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == room.user._id))">
+		<a class="btn btn-primary" href="/#!/rooms/{{room._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<small>
+		<em class="text-muted">
+			Posted on
+			<span data-ng-bind="room.created | date:'mediumDate'"></span>
+			by
+			<span data-ng-bind="room.user.displayName"></span>
+		</em>
+	</small>
+
+
+    <div class="container" ng-controller="AppCtrl">
+        <label class="pull-right welcome-panel" ng-show="user">
+            <a href="/#/home" class="btn btn-info btn-xs back-btn">Back</a>
+            Welcome, <u>
+            <span id="email">{{user.name}}</span></u>
+            <img class="prof-img" ng-src="{{user.img}}" width="39" />
+        </label>
+        <br/>
+
+        <h3 class="room-head">Welcome to {{room.roomname}}</h3>
+
+        <div class="messages" scroll-glue>
+            <div ng-repeat="msgs in chatMessages" class="message">
+                <h4>
+                    <img ng-src="{{msgs.userimg}}" width="20" />{{msgs.message}}
+                </h4>
+      <span>{{msgs.postedby}}
+        <small class="text-muted">{{msgs.posteddate | date:'yyyy-MM-dd HH:mm:ss'}}</small>
+      </span>
+            </div>
+            <div class="message" ng-show="chatMessages && chatMessages.length == 0">
+                <h4>No message yet!</h4>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" class="form-control" placeholder="Send Message" ng-model="message" ng-keypress="sendMessage($event)" autofocus>
+        </div>
+
+    </div>
+
+</section>
