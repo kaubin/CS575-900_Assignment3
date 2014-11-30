@@ -53,7 +53,7 @@ Clone the repository or download ZIP and extract it to a directory.
 
    Open a second web browser to http://localhost:3000
 	 
-   Using the scond browser, join the recently created chat room: Select Rooms -> List Rooms. A list of all available rooms will appear. Find the room created earlier. Click blue Join button.
+   Using the second browser, join the recently created chat room: Select Rooms -> List Rooms. A list of all available rooms will appear. Find the room created earlier. Click blue Join button.
    
    Enter chat messages in each browser, observe the other browser sees the conversation.
   
@@ -72,6 +72,7 @@ Clone the repository or download ZIP and extract it to a directory.
 
   
    Created models, views and controllers for Room and Message History data using MEAN.JS generator.
+   
      yo meanjs:crud-module RoomMessages
      
      yo meanjs:crud-module Rooms
@@ -82,25 +83,25 @@ Clone the repository or download ZIP and extract it to a directory.
 
    Install the following globally:
    
-     npm: Download installer from http://npmjs.org/
+   npm: Download installer from http://npmjs.org/
      
-     Node.JS: Download installer from http://nodejs.org/
+   Node.JS: Download installer from http://nodejs.org/
      
-     MondoDB: Download installer from http://www.mongodb.org/downloads
+   MondoDB: Download installer from http://www.mongodb.org/downloads
      
-     Grunt: 
+   Grunt: 
 
      npm install -g grunt
 
-     Grunt: 
+   Grunt: 
 
      npm install -g grunt-cli
 
-     Bower:
+   Bower:
 
      npm install -g bower
 
-     Yoeman:
+   Yoeman:
 
      npm install -g yo
 
