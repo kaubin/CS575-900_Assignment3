@@ -92,10 +92,6 @@ Clone the repository or download ZIP and extract it to a directory.
 
      npm install -g grunt
 
-   Grunt-cli: 
-
-     npm install -g grunt-cli
-
    Bower:
 
      npm install -g bower
