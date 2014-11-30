@@ -10,8 +10,11 @@ This is an attempt to build a web application using the MEAN.JS Yeoman generator
 This was my first experience with each of the platforms leveraged with MEAN.JS...
 
 M ongoDB, a NoSQL database
+
 E xpress.js, a web applications framework
+
 A ngular.js, a JavaScript MVC framework for web apps
+
 N ode.js, a software platform for scalable server-side and networking applications
 
 I did not want to start with an existing project such as the [Angular Express Seed](https://github.com/btford/angular-express-seed) since I wanted benefit from building something myself.
