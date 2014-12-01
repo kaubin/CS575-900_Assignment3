@@ -5,25 +5,6 @@ angular.module('roommessages').controller('RoommessagesController', ['$scope', '
 	function($scope, $stateParams, $location, Socket, Authentication, Roommessages) {
 		$scope.authentication = Authentication;
 
-//        Socket.on('log.message.to.db', function(Roommessages) {
-//
-//            var log = Roommessages.room_id + ' ' + Roommessages.message.text;
-//            console.log('Client Side: roommessages.client.controller just logged chat message: ' /*+ log*/);
-//
-//            // Create new Roommessage object
-//            var roommessage = new Roommessages ({
-//                room_name: Roommessages.room_id,
-//                msg: Roommessages.message.text
-//            });
-//
-//            // Redirect after save
-//            roommessage.$save(function(response) {
-//
-//            }, function(errorResponse) {
-//                $scope.error = errorResponse.data.message;
-//            });
-//        });
-
 		// Create new Roommessage
 		$scope.create = function() {
 			// Create new Roommessage object

@@ -21,8 +21,8 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-            var sockio = req.app.get('socketio'); // tacke out socket instance from the app container
-            sockio.sockets.emit('room.created', room); // emit an event for all connected clients
+			var sockio = req.app.get('socketio'); // socket instance from the app container
+			sockio.sockets.emit('room.created', room); // emit an event to connected clients
 			res.jsonp(room);
 		}
 	});

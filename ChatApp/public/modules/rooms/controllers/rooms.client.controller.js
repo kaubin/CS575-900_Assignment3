@@ -4,14 +4,14 @@
 angular.module('rooms').controller('RoomsController', ['$scope', '$stateParams', '$location', 'Socket', 'Authentication', 'Rooms', 'Roommessages',
     function ($scope, $stateParams, $location, Socket, Authentication, Rooms, Roommessages) {
         $scope.authentication = Authentication;
-        $scope.socket = Socket;
+        //$scope.socket = Socket;
 
          Socket.on('room.created', function(room) {
             console.log('Client Side: room.server.controller just created a room');
          });
 
         // Create new Room
-        $scope.create = function () {
+        $scope.create = function (showRoom) {
             // Create new Room object
             var room = new Rooms({
                 name: this.name
@@ -21,13 +21,18 @@ angular.module('rooms').controller('RoomsController', ['$scope', '$stateParams',
 
             // Redirect after save
             room.$save(function (response) {
-                $location.path('rooms/' + response._id);
-
+                if (showRoom) {
+                	$location.path('rooms/' + response._id);
+                }
                 // Clear form fields
                 $scope.name = '';
             }, function (errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
+
+            if (!showRoom) {
+                $location.path('/rooms');
+            }
         };
 
         // Remove existing Room
@@ -43,6 +48,7 @@ angular.module('rooms').controller('RoomsController', ['$scope', '$stateParams',
                         $scope.rooms.splice(i, 1);
                     }
                 }
+                $location.path('/rooms');
             } else {
                 $scope.room.$remove(function () {
                     $location.path('rooms');
@@ -61,6 +67,23 @@ angular.module('rooms').controller('RoomsController', ['$scope', '$stateParams',
             }, function (errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
+        };
+
+        $scope.edit = function(room) {
+            if ( room ) {
+                room.$update(function() {
+
+                    $location.path('/rooms/' + room._id + '/edit');
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+
+                /*$location.path('/rooms');*/
+            } else {
+                $scope.room.$remove(function() {
+                    $location.path('rooms');
+                });
+            }
         };
 
         // Verify socket.io user is valid, request socket reinitialization when invalid.
@@ -94,12 +117,9 @@ angular.module('rooms').controller('RoomsController', ['$scope', '$stateParams',
             checkSocket();
         };
 
-        //
-//        var InitSocket = function () {
-//            Socket.emit('init', {
-//
-//            });
-//        };
+        $scope.EnterRoom = function(room) {
+            $location.path('rooms/' + $scope.rooms[room]._id);
+        };
 
         // Socket listeners
         // ================
@@ -150,8 +170,7 @@ angular.module('rooms').controller('RoomsController', ['$scope', '$stateParams',
             }
         });
 
-        // Private helpers
-        // ===============
+        // ======= Private helpers =======
 
         var changeName = function (oldName, newName) {
             // rename user in list of users
