@@ -94,7 +94,7 @@ angular.module('rooms').controller('RoomsController', ['$scope', '$stateParams',
             if (!$scope.name) {
 
                 Socket.emit('force:init', {
-                    message: 'Socket unitialized: sending force:init to server'
+                    message: 'Socket uninitialized: sending force:init to server'
                 });
             }
         };

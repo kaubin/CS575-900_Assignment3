@@ -6,25 +6,6 @@
     <div class="Create-Group">
         <h3 class="room-head">Chat Rooms
             <a href="javascript:" class="btn btn-xs btn-primary" ng-hide="isNew == true" ng-click="isNew = true; roomName = ''; ">New Room</a>
-            <!--   <div class="col-md-12">
-                   <form class="form-horizontal"  data-ng-submit="create(false)" novalidate>
-                       <fieldset>
-                           <div class="form-group">
-                               <label class="control-label" for="name">Name</label>
-                               <div class="controls">
-                                   <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
-                               </div>
-                           </div>
-                           <div class="form-group" ng-href="#!/rooms">
-                               <input type="submit" class="btn btn-xs btn-info">
-                           </div>
-                           <div data-ng-show="error" class="text-danger">
-                               <strong data-ng-bind="error"></strong>
-                           </div>
-                       </fieldset>
-                   </form>
-               </div>-->
-
             <input ng-show="isNew == true" class="input-sm form-control cust-text" type="text" data-ng-model="name" placeholder="Name"/>
             <span class="btn btn-xs btn-info" href="javascript:" data-ng-href="#!/rooms" ng-disabled="!name" ng-show="isNew == true" ng-click="create(false)">Create</span>
         </h3>
