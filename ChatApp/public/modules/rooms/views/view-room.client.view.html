@@ -1,48 +1,79 @@
 <section data-ng-controller="RoomsController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="room.name"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == room.user._id))">
-		<a class="btn btn-primary" href="/#!/rooms/{{room._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="room.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="room.user.displayName"></span>
-		</em>
-	</small>
-        <!--You are known as: <span data-ng-bind="room.user.displayName"></span>.<br/>Change your nickname with <code>/nick [yourNewNick]</code>-->
-        <div class="list-group">
-            <a ng-repeat="message in messages" class="list-group-item">
-                {{message.user}} {{message.text}}
-            </a>
+    <div class="page-header">
+        <h1 data-ng-bind="room.name"></h1>
+    </div>
+    <div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == room.user._id))">
+        <a class="btn btn-primary" href="/#!/rooms/{{room._id}}/edit">
+            <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-primary" data-ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    <small>
+        <em class="text-muted">
+            Posted on
+            <span data-ng-bind="room.created | date:'mediumDate'"></span>
+            by
+            <span data-ng-bind="room.user.displayName"></span>
+        </em>
+    </small>
+    <br/>Your login is: <span data-ng-bind="room.user.displayName"></span>.
+    <br/>You alias is currently: <span>{{name}}</span>.
+    <!--<h4 class="list-group-item-heading">Chat Features:</h4>-->
+    <h4 class="room-head">Chat Features:
+    <br/>Change your alias using <i><b>Change Alias</b></i> button or with <code>/c [yourNewNick]</code>
+    <br/>Whisper to another alias with <code>/w [targetAlias] [message]</code><small>Not complete...</small>
+    </h4>
+    <div class="Create-Group">
+        <h3 class="room-head">Change Alias
+            <a href="javascript:" class="btn btn-xs btn-primary" ng-hide="isNew == true" ng-click="isNew = true; newAlias = ''; ">Change Alias</a>
+            <input ng-show="isNew == true" class="input-sm form-control cust-text" type="text" data-ng-model="newAlias" placeholder="New Alias"/>
+            <span class="btn btn-xs btn-info" href="javascript:" data-ng-href="#!/rooms" ng-disabled="!newAlias" ng-show="isNew == true" ng-click="changeName()">Change Alias</span>
+        </h3>
+    </div>
+    <a id="chat-box">
+    <div class="list-group">
+        <a ng-repeat="message in messages" class="list-group-item">
+            {{message.user}} {{message.text}}
+        </a>
+    </div>
+    </a>
+    <div class='row'>
+        &nbsp;
+    </div>
+    <div class='row'>
+        <div class='col-md-8'>
+            <form role='form' novalidate name='form'>
+                <div class='form-group'>
+                    <input type='text' style='width: 80%'
+                           required
+                           ng-max='50'
+                           ng-model='message'
+                           focus>
+                    <button class='btn btn-sm btn-primary'
+                            ng-enable='form.$valid'
+                            ng-click="sendMessage()">Send!
+                    </button>
+                </div>
+            </form>
         </div>
-        <div class='row'>
-            &nbsp;
-        </div>
-        <div class='row'>
-            <div class='col-md-8'>
-                <form role='form' novalidate name='form'>
-                    <div class='form-group'>
-                        <input type='text' style='width: 80%'
-                               required
-                               ng-max='50'
-                               ng-model='message'
-                               focus>
-                        <button class='btn btn-sm btn-primary'
-                                ng-enable='form.$valid'
-                                ng-click="sendMessage()">Send!</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    </div>
+
+    <div id="users"></div>
+
+
+    <!--            <div class="list-group">
+                    <a ng-repeat="message in messages" class="list-group-item">
+                        {{message.user}} {{message.text}}
+                    </a>
+                </div>-->
+    <div class="list-group">
+        <a data-ng-repeat="user in users" class="list-group-item">
+            <h4 class="list-group-item-heading">{{user}}</h4>
+        </a>
+    </div>
+
 </section>
 
 <section data-ng-controller="RoommessagesController" data-ng-init="find()">
@@ -50,9 +81,10 @@
         <h1>History</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="roommessage in roommessages" data-ng-href="#!/roommessages/{{roommessage._id}}" class="list-group-item">
+        <a data-ng-repeat="roommessage in roommessages" data-ng-href="#!/roommessages/{{roommessage._id}}"
+           class="list-group-item">
             <small class="list-group-item-text">
-                Posted on
+                Created on
                 <span data-ng-bind="roommessage.created | date:'medium'"></span>
                 by
                 <span data-ng-bind="roommessage.user.displayName"></span>

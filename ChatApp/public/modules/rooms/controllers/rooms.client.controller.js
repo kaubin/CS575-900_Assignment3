@@ -135,11 +135,8 @@ angular.module('rooms').controller('RoomsController', ['$scope', '$stateParams',
 
         Socket.on('send:message', function (message) {
             $scope.messages.push(message);
-
-
-
-            var m = 'User ' + message.user + ' sent message '+ message.text;
-            console.log('Client Side: Message received ' + m);
+            //var m = 'User ' + message.user + ' sent message '+ message.text;
+            //console.log('Client Side: Message received ' + m);
         });
 
         Socket.on('change:name', function (data) {
@@ -170,6 +167,13 @@ angular.module('rooms').controller('RoomsController', ['$scope', '$stateParams',
             }
         });
 
+        Socket.on('chat:error', function (data) {
+            $scope.messages.push({
+                user: 'chatroom',
+                text: data.text
+            });
+        });
+
         // ======= Private helpers =======
 
         var changeName = function (oldName, newName) {
@@ -192,26 +196,60 @@ angular.module('rooms').controller('RoomsController', ['$scope', '$stateParams',
 
         $scope.changeName = function () {
             Socket.emit('change:name', {
-                name: $scope.newName
+                name: $scope.newAlias
             }, function (result) {
                 if (!result) {
                     alert('There was an error changing your name');
                 } else {
 
-                    changeName($scope.name, $scope.newName);
+                    changeName($scope.name, $scope.newAlias);
 
-                    $scope.name = $scope.newName;
-                    $scope.newName = '';
+                    $scope.name = $scope.newAlias;
+                    $scope.newAlias = '';
                 }
             });
         };
 
         $scope.messages = [];
 
+        // Returns false when broadcast is unnecessary
+        function TrimCommands(data) {
+            var msg = data.trim();
+            if(msg.substr(0,3) === '/w '){
+                msg = msg.substr(3);
+                var ind = msg.indexOf(' ');
+                if(ind !== -1){
+                    var name = msg.substring(0, ind);
+                    msg = msg.substring(ind + 1);
+
+                    var i, user;
+                    for (i = 0; i < $scope.users.length; i++) {
+                        user = $scope.users[i];
+
+                        if (user.toLocaleLowerCase() === name.toLocaleLowerCase()) {
+                            Socket.emit('whisper:msg', {msg: msg, from_nick: $scope.name, to_nick: name});
+                            console.log('requesting whisper message: ' + msg);
+                            return { m : msg, emit : false };
+                        }
+                    }
+                }
+            } else if(msg.substr(0,3) === '/c '){
+                var newName = msg.substr(3);
+                if(newName){
+                    console.log('Name change: '+ $scope.name + '  now ' + newName);
+                    changeName($scope.name, newName);
+                    $scope.newAlias = '';
+                }
+            }
+            return { m : msg, emit : true };
+        }
+
         $scope.sendMessage = function () {
             console.log('Client Side: SendMessage');
             var room = $scope.room;
             var cMsg = $scope.message.trim();
+
+            var rslt = TrimCommands(cMsg);
 
             // Create message to add to message history database
 
@@ -224,9 +262,12 @@ angular.module('rooms').controller('RoomsController', ['$scope', '$stateParams',
 
             // Emit saved message upon success
             roommessage.$save(function(response) {
-                Socket.emit('send:message', {
-                    message: cMsg
-                });
+                if (rslt.emit) {
+                    console.log('sending message: ' + cMsg);
+                    Socket.emit('send:message', {
+                        message: cMsg
+                    });
+                }
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });

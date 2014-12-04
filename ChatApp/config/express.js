@@ -170,25 +170,33 @@ module.exports = function(db) {
     // Keep track of which names are used so that there are no duplicates
     var userNames = (function () {
         var names = {};
+        var sockets = {};
 
-        var claim = function (name) {
+        var claim = function (name, sock) {
             if (!name || names[name]) {
                 return false;
             } else {
                 names[name] = true;
+                sockets[name] = sock;
                 return true;
             }
         };
 
+        var find = function (name) {
+            if (names[name]) {
+                return names[name];
+            }
+            return;
+        };
+
         // find the lowest unused "guest" name and claim it
-        var getGuestName = function () {
+        var getGuestName = function (sock) {
             var name,
                 nextUserId = 1;
-
             do {
-                name = 'Guest ' + nextUserId;
+                name = 'Guest_' + nextUserId;
                 nextUserId += 1;
-            } while (!claim(name));
+            } while (!claim(name, sock));
 
             return name;
         };
@@ -196,9 +204,21 @@ module.exports = function(db) {
         // serialize claimed names as an array
         var get = function () {
             var res = [];
-/*            for (user in names) {
-                res.push(user);
-            }*/
+            var u;
+            for (u in names) {
+                res.push(u);
+            }
+
+            return res;
+        };
+
+        // serialize name sockets as an array
+        var getSocket = function () {
+            var res = [];
+            var s;
+            for (s in sockets) {
+                res.push(s);
+            }
 
             return res;
         };
@@ -213,12 +233,13 @@ module.exports = function(db) {
             claim: claim,
             free: free,
             get: get,
+            getSocket: getSocket,
             getGuestName: getGuestName
         };
     }());
 
     io.sockets.on('connection', function (socket) {
-        var name = userNames.getGuestName();
+        var name = userNames.getGuestName(socket);
 
         // send the new user their name and a list of users
         socket.emit('init', {
@@ -254,9 +275,40 @@ module.exports = function(db) {
             });
         });
 
+        socket.on('whisper:msg', function(data){
+            var all_users = userNames.get();
+            var all_sockets = userNames.getSocket();
+           // data.msg, data.from_nick, data.to_nick
+
+            console.log('attempt to locate: ' );
+            var i, user;
+            for (i = 0; i < all_users.length; i++) {
+                user = all_users[i];
+                if (user.toLocaleLowerCase() === data.from_nick.toLocaleLowerCase()) {
+                    console.log('located: ' + data.from_nick);
+
+                    if(all_sockets[i]){
+                        console.log('Socket does not exist: ' + all_sockets[i]);
+                    }
+
+                    // TO DO: figure out why sockets are not resolving to alias
+                    // Once that works, we can whisper with a spacific user
+                    socket.broadcast.emit('send:message', {
+//                    all_sockets[i].emit('send:message', {
+                        user: data.to_nick,
+                        text: data.msg
+                    });
+                    console.log('whispering message: ' + data.msg);
+                    return;
+                } else {
+                    console.log('unable to locate, let client know they did not type existing user: ' + data.from_nick);
+                }
+            }
+        });
+
         // validate a user's name change, and broadcast it on success
         socket.on('change:name', function (data, fn) {
-            if (userNames.claim(data.name)) {
+            if (userNames.claim(data.name, socket)) {
                 var oldName = name;
                 userNames.free(oldName);
 
